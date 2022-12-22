@@ -31,6 +31,7 @@ Component({
       let count = this.properties.count
       count = like? count - 1: count + 1
       like = !like
+      
       this.setData({
         count: count,
         like: like
