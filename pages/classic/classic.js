@@ -1,6 +1,8 @@
 // pages/classic/classic.js
 import { ClassicModel } from "../../models/classic"
 import {LikeModel} from "../../models/like"
+
+
 let classicModel = new ClassicModel()
 let likeModel = new LikeModel()
 
@@ -15,11 +17,6 @@ Page({
     first: false
   },
 
-  onLike: function(event){
-    // console.log(event)
-    let behavior = event.detail.behavior
-    likeModel.like(behavior, this.data.classic.id, this.data.classic.type)
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -43,6 +40,31 @@ Page({
     
   },
   
+  
+  onLike: function(event){
+    // console.log(event)
+    let behavior = event.detail.behavior
+    likeModel.like(behavior, this.data.classic.id, this.data.classic.type)
+  },
+  
+  onNext(event){
+    this._updateClassic('next')
+  },
+  onPrevious:function(event){
+    this._updateClassic('previous')
+  },
+
+  _updateClassic(nextOrPrevious){
+    const index = this.data.classic.index
+    classicModel.getClassic(index, nextOrPrevious, (data)=>{
+      this.setData({
+        classic: data,
+        latest: classicModel.isLatest(data.index),
+        first: classicModel.isFirst(data.index)
+      })
+    })
+  },
+
   
 
   /**
