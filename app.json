@@ -3,6 +3,10 @@
     "pages/classic/classic",
     "components/like/index"
   ],
+  "requiredBackgroundModes": [
+    "audio",
+    "location"
+  ],
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "微信小程序",

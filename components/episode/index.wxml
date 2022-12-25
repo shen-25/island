@@ -6,7 +6,7 @@
   <text></text>
 </view> -->
 
-<view class="container">
+<view class="container" hidden="{{ hidden }}">
   <view class="index-container">
     <text class="plain">NO.</text>
     <text class="index">{{ _index }}</text>
