@@ -1,9 +1,11 @@
-import { HTTP } from "../util/http";
-class ClassicModel extends HTTP{
-  getLatest(sCallback){
+import {
+  HTTP
+} from "../util/http";
+class ClassicModel extends HTTP {
+  getLatest(sCallback) {
     this.request({
       url: 'classic/latest',
-      success: (res)=>{
+      success: (res) => {
         sCallback(res)
         this._setLatestIndex(res.data.index)
         const key = this._getKey(res.data.index)
@@ -13,43 +15,43 @@ class ClassicModel extends HTTP{
     })
   }
 
-   getClassic(index, nextOrPrevious, sCallback){
-    let key = nextOrPrevious === 'next'? this._getKey(index + 1) : this._getKey(index - 1)
+  getClassic(index, nextOrPrevious, sCallback) {
+    let key = nextOrPrevious === 'next' ? this._getKey(index + 1) : this._getKey(index - 1)
     let classic = wx.getStorageSync(key)
-    if(!classic){
+    if (!classic) {
       this.request({
         url: `classic/${index}/${nextOrPrevious}`,
-        success: (res)=>{
+        success: (res) => {
           sCallback(res.data)
           const key = this._getKey(res.data.index)
           wx.setStorageSync(key, res.data)
         }
       })
-    } else{
+    } else {
       sCallback(classic)
     }
-   
+
   }
 
-  isFirst(index){
+  isFirst(index) {
     return index === 1
   }
 
-  isLatest(index){
+  isLatest(index) {
     const latestIndex = this._getLatestIndex()
     return index === latestIndex
   }
-  _setLatestIndex(index){
+  _setLatestIndex(index) {
     wx.setStorageSync('latestIndex', index)
   }
 
-  _getLatestIndex(){
+  _getLatestIndex() {
     return wx.getStorageSync('latestIndex')
   }
 
-  _getKey(index){
+  _getKey(index) {
     let key = 'classic-' + index
     return key
   }
 }
-export {ClassicModel}
+export { ClassicModel }

@@ -1,7 +1,8 @@
 // pages/book_detail/book_detail.js
 import { BookModel } from "../../models/book"
+import { LikeModel } from "../../models/like"
 const bookeModel = new BookModel()
-
+const likeModel = new LikeModel()
 Page({
 
   /**
@@ -11,34 +12,105 @@ Page({
     comments: [],
     book: null,
     likeStatus: false,
-    likeCount: 0
+    likeCount: 0,
+    posting: false
   },
 
+  onLike(event){
+    const like_or_cancel = event.detail.behavior
+    likeModel.like(like_or_cancel,this.data.book.id,400)
+   },
+
+   /**
+    * 点击输入框，弹出真实的输入框
+    * @param {} event 
+    */
+   onFakePost(event){
+      this.setData({
+        posting: true
+      })
+   },
+   onCancel(event){
+    this.setData({
+      posting: false
+    })
+   },
+
+   onPost(event){
+    //自定义的事件传递的参数在detail里
+    const comment = event.detail.text || event.detail.value
+    if(comment.length > 12) {
+      wx.showToast({
+        title: '短评最多12个字',
+        icon: 'none'
+      })
+      return
+    }
+
+    bookeModel.postComment(this.data.book.id, comment)
+    .then((res)=>{
+      wx.showToast({
+        title: '添加成功',
+        icon: 'none'
+      })
+      console.log(this.data.comments)
+      this.data.comments.unshift({
+        content: comment,
+        nums: 1
+      })
+      this.setData({
+        comments: this.data.comments,
+        posting: false
+      })
+
+    })
+
+   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.showLoading()
     const bId = options.bId
     const detail = bookeModel.getDetail(bId)
     const comments = bookeModel.getComments(bId)
     const likeStatus = bookeModel.getLikeStatus(bId)
-    detail.then((res) => {
-      this.setData({
-        book: res
-      })
-    })
-    comments.then((res) => {
-      this.setData({
-        comments: res.comments
-      })
-    })
-    likeStatus.then((res) => {
-      this.setData({
-        likeStatus: res.like_status,
-        likeCount: res.fav_nums
-      })
 
+    /*
+      等待所有子promise完成,数据放在res数组中，
+      race 竞争，返回结果是竞争成功的结果
+    */
+
+    Promise.all([detail, comments, likeStatus])
+    .then(res =>{
+      // console.log(res)
+        this.setData({
+          book: res[0],
+          comments: res[1].comments,
+          likeStatus: res[2].like_status,
+          likeCount: res[2].fav_nums
+        })
+        wx.hideLoading()
     })
+
+
+    // detail.then((res) => {
+    //   this.setData({
+    //     book: res
+    //   })
+    // })
+    // comments.then((res) => {
+    //   this.setData({
+    //     comments: res.comments
+    //   })
+    // })
+    // likeStatus.then((res) => {
+    //   this.setData({
+    //     likeStatus: res.like_status,
+    //     likeCount: res.fav_nums
+    //   })
+
+    // })
   },
 
   /**

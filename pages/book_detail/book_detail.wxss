@@ -65,12 +65,12 @@
   color: #aaa;
 }
 
-.ex-tag1{
+/* .ex-tag1{
   background-color: #fffbdd !important;
 }
 .ex-tag2{
   background-color: #eefbff !important;
-}
+} */
 .content {
   text-indent: 58rpx;
   font-weight: 500;
@@ -189,4 +189,23 @@
 
 .shadow{
   color: #999999;
+}
+
+/* .comment-container > v-tag:nth-child(1) > view{
+  background-color: #fffbdd;
+}
+
+.comment-container > v-tag:nth-child(2) >  view{
+  background-color: #eefbfff;
+} */
+
+.ex-tag-class{
+  background-color: #fffbdd !important;
+ 
+
+}
+
+.ex-tag2-class{
+  background-color: #eefbff !important;
+
 }

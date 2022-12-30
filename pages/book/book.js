@@ -7,7 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    books: []
+    books: [],
+    searching: false
+  },
+
+  onSearching(){
+    this.setData({
+      searching: true
+    })
+  },
+  onCancel(){
+    this.setData({
+      searching: false
+    })
   },
 
   /**
@@ -15,12 +27,12 @@ Page({
    */
   onLoad(options) {
 
-    bookeModel.getHotList().
-      then((res) => {
-        this.setData({
-          books: res
-        })
-      })
+    // bookeModel.getHotList().
+    //   then((res) => {
+    //     this.setData({
+    //       books: res
+    //     })
+    //   })
 
     /**
      * 正确调用promise,返回一个promise
