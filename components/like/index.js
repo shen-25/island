@@ -4,12 +4,15 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    like:{
-      type: Boolean
+    like: {
+      type: Boolean,
     },
-    count:{
-      type: Number
-    }
+    count: {
+      type: Number,
+    },
+    readOnly: {
+      type: Boolean,
+    },
   },
 
   /**
@@ -18,29 +21,36 @@ Component({
    */
   data: {
     //数据绑定
-    yesSrc: './images/like.png',
-    disSrc: './images/like@dis.png'
+    yesSrc: "./images/like.png",
+    disSrc: "./images/like@dis.png",
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-    onLike: function(event){
-      let like = this.properties.like
-      let count = this.properties.count
-      count = like? count - 1: count + 1
-      like = !like
-      console.log(like)
+    onLike: function (event) {
+      console.log(this.properties.readOnly);
+      if (this.properties.readOnly) {
+        return;
+      }
+      let like = this.properties.like;
+      let count = this.properties.count;
+      count = like ? count - 1 : count + 1;
+      like = !like;
+      console.log(like);
       this.setData({
         count: count,
-        like: like
-      })
-      let behavior = this.properties.like ? 'like' : 'cancel'
-      this.triggerEvent('like', {
-        behavior: behavior
-      }, {})
-    }
-
-  }
-})
+        like: like,
+      });
+      let behavior = this.properties.like ? "like" : "cancel";
+      this.triggerEvent(
+        "like",
+        {
+          behavior: behavior,
+        },
+        {}
+      );
+    },
+  },
+});

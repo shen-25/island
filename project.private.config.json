@@ -35,6 +35,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/about/about",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/marry/marry",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

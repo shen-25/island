@@ -1,0 +1,6 @@
+<view class="container">
+  <text class="container__title">关于我们</text>
+  <block wx:for="{{imgData}}" wx:key="*this">
+    <image class="container__img" src="/images/about/{{item}}" />
+  </block>
+</view>

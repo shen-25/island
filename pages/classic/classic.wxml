@@ -1,42 +1,23 @@
 <view class="container">
   <view class="header">
     <v-episode class="episode" index="{{ classic.index }}"></v-episode>
-    <v-like
-      class="like"
-      bind:like="onLike"
-      like="{{ likeStatus }}"
-      count="{{ likeCount }}"
-    ></v-like>
+    <view class="like-container">
+      <v-like class="like" bind:like="onLike" like="{{ likeStatus }}" count="{{ likeCount }}"></v-like>
+      <v-button class="share-btn" open-type='share'>
+        <image slot='img' class="share" src="/images/icon/share.png"></image>
+      </v-button>
+    </view>
   </view>
-  <v-movie
-    img="{{ classic.image }}"
-    content="{{ classic.content }}"
-    hidden="{{ classic.type != 100 }}"
-  ></v-movie>
-  <v-music
-    wx:if="{{ classic.type == 200 }}"
-    img="{{ classic.image }}"
-    content="{{ classic.content }}"
-    src="{{ classic.url }}"
-    title="{{ classic.title }}"
-  ></v-music>
+  <v-movie img="{{ classic.image }}" content="{{ classic.content }}" hidden="{{ classic.type != 100 }}"></v-movie>
+  <v-music wx:if="{{ classic.type == 200 }}" img="{{ classic.image }}" content="{{ classic.content }}"
+    src="{{ classic.url }}" title="{{ classic.title }}"></v-music>
   <!-- <v-music
     hidden="{{ classic.type != 200 }}"
     img="{{ classic.image }}"
     content="{{ classic.content }}"
     src="{{ classic.url }}"
   ></v-music> -->
-  <v-essay
-    hidden="{{ classic.type != 300 }}"
-    img="{{ classic.image }}"
-    content="{{ classic.content }}"
-  ></v-essay>
-  <v-navi
-    bind:left="onNext"
-    bind:right="onPrevious"
-    class="navi"
-    title="{{ classic.title }}"
-    latest="{{ latest }}"
-    first="{{ first }}"
-  ></v-navi>
+  <v-essay hidden="{{ classic.type != 300 }}" img="{{ classic.image }}" content="{{ classic.content }}"></v-essay>
+  <v-navi bind:left="onNext" bind:right="onPrevious" class="navi" title="{{ classic.title }}" latest="{{ latest }}"
+    first="{{ first }}"></v-navi>
 </view>

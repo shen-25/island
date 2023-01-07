@@ -126,7 +126,7 @@
 
 
 .like {
-  margin-right: 30rpx;
+  margin-right: 10rpx;
   margin-top: 10rpx;
 }
 
@@ -208,4 +208,22 @@
 .ex-tag2-class{
   background-color: #eefbff !important;
 
+}
+.like-share-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 22rpx;
+  padding-right: 15rpx;
+
+}
+
+.share-btn {
+  margin-top: 28rpx;
+}
+
+.share {
+  width: 40rpx;
+  height: 40rpx;
 }

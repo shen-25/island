@@ -1,4 +1,4 @@
-<wxs src="../../util/filter.wxs" module="util"/>
+<wxs src="../../util/filter.wxs" module="util" />
 
 <view class="container">
   <view class="head">
@@ -13,7 +13,7 @@
       <block wx:for="{{ util.limit(comments, 10)}}" wx:key="content">
         <!-- {{}}是不能隔行，否则报错 -->
         <v-tag text="{{ item.content }}"
-        tag-class="{{ index == 0 ? 'ex-tag-class' : '' || index == 1  ? 'ex-tag2-class' : ''}}">
+          tag-class="{{ index == 0 ? 'ex-tag-class' : '' || index == 1  ? 'ex-tag2-class' : ''}}">
           <text class="num" slot="after">{{ "+" + item.nums }}</text>
         </v-tag>
       </block>
@@ -22,35 +22,39 @@
   <view class="sub-container">
     <text class="handle">内容简介</text>
     <text class="content" decode="true">{{util.format(book.summary)}}</text>
- </view> 
+  </view>
 
- <view class="sub-container">
-  <text class="headline">书本信息</text>
-  <view class="detail-container">
+  <view class="sub-container">
+    <text class="headline">书本信息</text>
+    <view class="detail-container">
       <view class="vertical description">
-          <text>出版社</text>
-          <text>出版年</text>
-          <text>页数</text>
-          <text>定价</text>
-          <text>装帧</text>
+        <text>出版社</text>
+        <text>出版年</text>
+        <text>页数</text>
+        <text>定价</text>
+        <text>装帧</text>
       </view>
       <view class="vertical">
-          <text>{{book.publisher}}</text>
-          <text>{{book.pubdate}}</text>
-          <text>{{book.pages}}</text>
-          <text>{{book.price}}</text>
-          <text>{{book.binding}}</text>
+        <text>{{book.publisher}}</text>
+        <text>{{book.pubdate}}</text>
+        <text>{{book.pages}}</text>
+        <text>{{book.price}}</text>
+        <text>{{book.binding}}</text>
       </view>
+    </view>
   </view>
-</view>
 </view>
 
 <view class="post-container" wx:if="{{!posting}}">
   <view class="post-fake" bind:tap="onFakePost">
     <text>输入短评</text>
   </view>
-  <v-like bind:like="onLike" class="like" like="{{likeStatus}}"count ="{{likeCount}}">
-  </v-like>
+  <view class="like-share-container">
+    <v-like bind:like="onLike" class="like" like="{{likeStatus}}" count="{{likeCount}}" />
+    <v-button open-type="share" class="share-btn">
+      <image slot='img' class="share" src="/images/icon/share.png"></image>
+    </v-button>
+  </view>
 </view>
 
 <view class="posting-container" wx:if="{{posting}}">
@@ -59,31 +63,28 @@
     <text wx:else>暂无标签</text>
     <text class="cancel" bind:tap="onCancel">取消</text>
   </view>
-  <view  class="comment-container">
+  <view class="comment-container">
     <block wx:for="{{util.limit(comments,3)}}" wx:key="content">
-      <v-tag bind:tapping='onPost' text="{{item.content}}" 
-          tag-class="{{tool.highLight(index)}}">
+      <v-tag bind:tapping='onPost' text="{{item.content}}" tag-class="{{tool.highLight(index)}}">
         <text slot='after' class="num">{{"+" + item.nums}}</text>
       </v-tag>
     </block>
   </view>
-    <input type="text" class="post" placeholder="短评最多12个字" bind:confirm="onPost"/>
- </view>
+  <input type="text" class="post" placeholder="短评最多12个字" bind:confirm="onPost" />
+</view>
 
- <v-mask wx:if="{{posting}}"></v-mask>
+<v-mask wx:if="{{posting}}"></v-mask>
 
- <wxs module="tool">
+<wxs module="tool">
   var highLight = function(index){
-    if(index == 0){
-      return 'ex-tag-class'
-    }else if(index == 1){
-      return 'ex-tag2-class'
-    }
-    return ''
+  if(index == 0){
+  return 'ex-tag-class'
+  }else if(index == 1){
+  return 'ex-tag2-class'
+  }
+  return ''
   };
   module.exports = {
-    highLight : highLight,
-}
+  highLight : highLight,
+  }
 </wxs>
-
-
