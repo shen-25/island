@@ -1,6 +1,13 @@
 // pages/book/book.js
-import { BookModel } from "../../models/book";
+import {
+  BookModel
+} from "../../models/book";
+
+import { random } from "../../util/common";
+
 const bookeModel = new BookModel()
+
+
 Page({
 
   /**
@@ -8,15 +15,16 @@ Page({
    */
   data: {
     books: [],
-    searching: false
+    searching: false,
+    more: ''
   },
 
-  onSearching(){
+  onSearching() {
     this.setData({
       searching: true
     })
   },
-  onCancel(){
+  onCancel() {
     this.setData({
       searching: false
     })
@@ -27,12 +35,12 @@ Page({
    */
   onLoad(options) {
 
-    // bookeModel.getHotList().
-    //   then((res) => {
-    //     this.setData({
-    //       books: res
-    //     })
-    //   })
+    bookeModel.getHotList().
+      then((res) => {
+        this.setData({
+          books: res
+        })
+      })
 
     /**
      * 正确调用promise,返回一个promise
@@ -90,7 +98,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    this.setData({
+      more: random(16)
+    })
   },
 
   /**

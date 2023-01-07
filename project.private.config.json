@@ -28,6 +28,13 @@
           "query": "bId=1061",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/book/book",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
